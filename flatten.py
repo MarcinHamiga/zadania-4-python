@@ -1,14 +1,15 @@
 def flatten(sequence):
-    result = []
     for item in sequence:
         if isinstance(item, (list, tuple)):
-            result.extend(flatten(item))
+            yield from flatten(item)
         else:
-            result.append(item)
-    return result
+            yield item
 
 
 if __name__ == "__main__":
     mytuple = ([1,"kot"], 3,(4, 5, [7, 8, 9]))
-    myresult = flatten(mytuple)
-    print(myresult)
+    print("[", end="")
+    for item in flatten(mytuple):
+        print(item, end=" ")
+    print("]", end="")
+    print(list(flatten(mytuple)))
